@@ -52,7 +52,7 @@ def index():
 
 @app.get("/login")
 def login():
-    redirect_uri = url_for("callback", _external=True)
+    redirect_uri = f"http://localhost:{APP_PORT}/callback"
     return keycloak.authorize_redirect(redirect_uri)
 
 
@@ -76,11 +76,13 @@ def local_logout():
 
 @app.get("/sso-logout")
 def sso_logout():
-    """End the local session and request logout from Keycloak."""
     id_token = session.get("id_token")
     session.clear()
+
     return keycloak.logout_redirect(
-        post_logout_redirect_uri=url_for("logged_out", _external=True),
+        post_logout_redirect_uri=(
+            f"http://localhost:{APP_PORT}/logged-out"
+        ),
         id_token_hint=id_token,
     )
 
