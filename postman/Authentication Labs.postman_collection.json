@@ -240,13 +240,18 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}"
+              "raw": "{\n  \"username\": \"alice\",\n  \"password\": \"alice123\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/jwt/login",
+              "raw": "http://127.0.0.1:5000/jwt/login",
+              "protocol": "http",
               "host": [
-                "{{baseUrl}}"
+                "127",
+                "0",
+                "0",
+                "1"
               ],
+              "port": "5000",
               "path": [
                 "jwt",
                 "login"
@@ -263,7 +268,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "0000",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGljZSIsInJvbGUiOiJzdHVkZW50IiwiaXNzIjoicHl0aG9uLWF1dGhlbnRpY2F0aW9uLWxhYiIsImF1ZCI6ImxhYi1hcGkiLCJpYXQiOjE3ODQ3Mzc0MTgsIm5iZiI6MTc4NDczNzQxOCwiZXhwIjoxNzg0NzM3NzE4fQ.9sj4_Kv2B_XQ5AuEHi3P5jvuD4qDpJV3Xxj1WWH6BhE",
                   "type": "string"
                 }
               ]
@@ -296,7 +301,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "000",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGljZSIsInJvbGUiOiJzdHVkZW50IiwiaXNzIjoicHl0aG9uLWF1dGhlbnRpY2F0aW9uLWxhYiIsImF1ZCI6ImxhYi1hcGkiLCJpYXQiOjE3ODQ3Mzc0MTgsIm5iZiI6MTc4NDczNzQxOCwiZXhwIjoxNzg0NzM3NzE4fQ.9sj4_Kv2B_XQ5AuEHi3P5jvuD4qDpJV3Xxj1WWH6BhE",
                   "type": "string"
                 }
               ]
@@ -338,7 +343,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}"
+              "raw": "{\n  \"username\": \"alice\",\n  \"password\": \"alice123\"\n}"
             },
             "url": {
               "raw": "http://127.0.0.1:5000/session/login",
@@ -419,6 +424,143 @@
                 "logout"
               ]
             }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05 OAuth 2.0 with Keycloak and Postman",
+      "item": [
+        {
+          "name": "Authorization URL",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/realms/auth-lab/protocol/openid-connect/auth",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "realms",
+                "auth-lab",
+                "protocol",
+                "openid-connect",
+                "auth"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "callback URL",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://oauth.pstmn.io/v1/callback",
+              "protocol": "https",
+              "host": [
+                "oauth",
+                "pstmn",
+                "io"
+              ],
+              "path": [
+                "v1",
+                "callback"
+              ]
+            },
+            "description": "Postman's OAuth 2.0 callback URL. After the user authenticates in the browser, Keycloak redirects here with the authorization code."
+          },
+          "response": []
+        },
+        {
+          "name": "User Authentication",
+          "request": {
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "useBrowser",
+                  "value": false,
+                  "type": "boolean"
+                },
+                {
+                  "key": "scope",
+                  "value": "openid email roles",
+                  "type": "string"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "http://localhost:8080/realms/auth-lab/protocol/openid-connect/token",
+                  "type": "string"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "http://localhost:8080/realms/auth-lab/protocol/openid-connect/auth",
+                  "type": "string"
+                },
+                {
+                  "key": "redirect_uri",
+                  "value": "https://oauth.pstmn.io/v1/browser-callback",
+                  "type": "string"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code_with_pkce",
+                  "type": "string"
+                },
+                {
+                  "key": "callBackUrl",
+                  "value": "https://oauth.pstmn.io/v1/callback",
+                  "type": "string"
+                },
+                {
+                  "key": "clientId",
+                  "value": "postman-client",
+                  "type": "string"
+                },
+                {
+                  "key": "clientSecret",
+                  "value": "",
+                  "type": "string"
+                },
+                {
+                  "key": "tokenName",
+                  "value": "keycloak-token",
+                  "type": "string"
+                },
+                {
+                  "key": "addTokenTo",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/realms/auth-lab/protocol/openid-connect/userinfo",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "realms",
+                "auth-lab",
+                "protocol",
+                "openid-connect",
+                "userinfo"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"http://localhost:8080/realms/auth-lab/protocol/openid-connect/userinfo\""
           },
           "response": []
         }
