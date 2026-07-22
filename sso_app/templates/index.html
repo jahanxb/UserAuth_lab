@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ app_name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="container">
+  <h1>{{ app_name }}</h1>
+  <p>OpenID Connect client: <code>{{ client_id }}</code></p>
+
+  {% if user %}
+    <section class="card success">
+      <h2>Authenticated</h2>
+      <p><strong>Username:</strong> {{ user.get('preferred_username', 'not supplied') }}</p>
+      <p><strong>Name:</strong> {{ user.get('name', 'not supplied') }}</p>
+      <p><strong>Email:</strong> {{ user.get('email', 'not supplied') }}</p>
+      <p><strong>Subject identifier:</strong> <code>{{ user.get('sub') }}</code></p>
+    </section>
+    <form method="post" action="{{ url_for('local_logout') }}">
+      <button type="submit">Local logout</button>
+    </form>
+    <p><a class="button-link danger" href="{{ url_for('sso_logout') }}">Single sign-out through Keycloak</a></p>
+  {% else %}
+    <section class="card">
+      <p>No local application session exists.</p>
+      <a class="button-link" href="{{ url_for('login') }}">Log in with Keycloak</a>
+    </section>
+  {% endif %}
+
+  <section class="card note">
+    <h2>SSO observation</h2>
+    <p>After signing in to one application, open the other application and click its login button. Keycloak should reuse its central login session and should not request the password again.</p>
+  </section>
+</main>
+</body>
+</html>

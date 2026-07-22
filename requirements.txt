@@ -1,0 +1,7 @@
+Flask
+Flask-Session
+Authlib
+PyJWT
+python-dotenv
+requests
+pytest

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Authentication Lab Home{% endblock %}
+{% block content %}
+<h1>Python Authentication Lab</h1>
+<p>This Flask application supports the Basic, opaque-token, JWT, and session labs.</p>
+
+<section class="card">
+  <h2>Demo users</h2>
+  <table>
+    <thead><tr><th>Username</th><th>Password</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td><code>alice</code></td><td><code>alice123</code></td><td>student</td></tr>
+      <tr><td><code>admin</code></td><td><code>admin123</code></td><td>admin</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="grid">
+  <article class="card"><h2>Basic</h2><code>GET /basic/profile</code></article>
+  <article class="card"><h2>Opaque token</h2><code>POST /token/login</code><br><code>GET /token/profile</code></article>
+  <article class="card"><h2>JWT</h2><code>POST /jwt/login</code><br><code>GET /jwt/profile</code><br><code>GET /jwt/admin</code></article>
+  <article class="card"><h2>Session</h2><p><a href="{{ url_for('session_auth.login') }}">Open browser session lab</a></p></article>
+</section>
+{% endblock %}

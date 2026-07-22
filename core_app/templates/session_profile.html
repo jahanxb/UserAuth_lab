@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Session Profile{% endblock %}
+{% block content %}
+<h1>Authenticated Session</h1>
+<section class="card">
+  <p><strong>Name:</strong> {{ user.display_name }}</p>
+  <p><strong>Username:</strong> {{ user.username }}</p>
+  <p><strong>Role:</strong> {{ user.role }}</p>
+  <p>The browser sent a session identifier cookie. The authenticated state is stored on the server.</p>
+</section>
+<form method="post" action="{{ url_for('session_auth.logout') }}">
+  <button type="submit">Log out</button>
+</form>
+<p><a href="/">Back to lab home</a></p>
+{% endblock %}

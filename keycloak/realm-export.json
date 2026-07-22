@@ -1,0 +1,96 @@
+{
+  "realm": "auth-lab",
+  "enabled": true,
+  "displayName": "Python Authentication Lab",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "rememberMe": true,
+  "roles": {
+    "realm": [
+      {"name": "student", "description": "Student role used by the lab"},
+      {"name": "admin", "description": "Administrator role used by the lab"}
+    ]
+  },
+  "users": [
+    {
+      "username": "alice",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Alice",
+      "lastName": "Student",
+      "email": "alice@example.test",
+      "credentials": [
+        {"type": "password", "value": "alice123", "temporary": false}
+      ],
+      "realmRoles": ["student"]
+    },
+    {
+      "username": "adminuser",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@example.test",
+      "credentials": [
+        {"type": "password", "value": "admin123", "temporary": false}
+      ],
+      "realmRoles": ["student", "admin"]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "postman-client",
+      "name": "Postman OAuth Lab Client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": [
+        "https://oauth.pstmn.io/v1/callback",
+        "http://localhost/*"
+      ],
+      "webOrigins": ["*"],
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      },
+      "defaultClientScopes": ["web-origins", "acr", "roles", "profile", "basic", "email"]
+    },
+    {
+      "clientId": "sso-app-one",
+      "name": "University Portal",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "app-one-secret",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://localhost:5001/*"],
+      "webOrigins": ["http://localhost:5001"],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:5001/*"
+      },
+      "defaultClientScopes": ["web-origins", "acr", "roles", "profile", "basic", "email"]
+    },
+    {
+      "clientId": "sso-app-two",
+      "name": "Library Portal",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "app-two-secret",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://localhost:5002/*"],
+      "webOrigins": ["http://localhost:5002"],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:5002/*"
+      },
+      "defaultClientScopes": ["web-origins", "acr", "roles", "profile", "basic", "email"]
+    }
+  ]
+}
