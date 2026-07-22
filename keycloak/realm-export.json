@@ -27,37 +27,50 @@
       "realmRoles": ["student"]
     },
     {
-      "username": "adminuser",
+      "username": "admin",
       "enabled": true,
       "emailVerified": true,
       "firstName": "Admin",
       "lastName": "User",
       "email": "admin@example.test",
       "credentials": [
-        {"type": "password", "value": "admin123", "temporary": false}
+        {
+          "type": "password",
+          "value": "admin123",
+          "temporary": false
+        }
       ],
       "realmRoles": ["student", "admin"]
     }
   ],
   "clients": [
-    {
-      "clientId": "postman-client",
-      "name": "Postman OAuth Lab Client",
-      "enabled": true,
-      "protocol": "openid-connect",
-      "publicClient": true,
-      "standardFlowEnabled": true,
-      "directAccessGrantsEnabled": false,
-      "redirectUris": [
-        "https://oauth.pstmn.io/v1/callback",
-        "http://localhost/*"
-      ],
-      "webOrigins": ["*"],
-      "attributes": {
-        "pkce.code.challenge.method": "S256"
-      },
-      "defaultClientScopes": ["web-origins", "acr", "roles", "profile", "basic", "email"]
+  {
+    "clientId": "postman-client",
+    "name": "Postman OAuth Lab Client",
+    "enabled": true,
+    "protocol": "openid-connect",
+    "publicClient": true,
+    "standardFlowEnabled": true,
+    "directAccessGrantsEnabled": false,
+    "redirectUris": [
+      "https://oauth.pstmn.io/v1/callback",
+      "https://oauth.pstmn.io/v1/browser-callback"
+    ],
+    "webOrigins": [
+      "https://oauth.pstmn.io"
+    ],
+    "attributes": {
+      "pkce.code.challenge.method": "S256"
     },
+    "defaultClientScopes": [
+      "web-origins",
+      "acr",
+      "roles",
+      "profile",
+      "basic",
+      "email"
+    ]
+  },
     {
       "clientId": "sso-app-one",
       "name": "University Portal",
